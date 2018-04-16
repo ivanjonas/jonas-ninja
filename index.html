@@ -27,4 +27,32 @@
         <p>My goal is to be a world-class software developer. I'm well on my way; I am already aware of so much I don't know and how little I <em>do</em> know. I blog about related topics at <a href="https://blog.jonas.ninja">blog.jonas.ninja</a>.</p>
     </div>
 </body>
+<script>
+var RANGE = 40
+var radians = 0
+var THIRD = Math.PI * 2 / 3
+var cyclingChannels = {
+  red: true,
+  green: false,
+  blue: false
+}
+
+window.setInterval(colorize, 100)
+function colorize() {
+  radians += 0.03125;
+  radians = radians % (Math.PI * 2); // wrap it around so that it technically never gets too big
+
+  if (radians > (THIRD)) {
+    cyclingChannels.green = true
+  }
+  if (radians > (2 * THIRD)) {
+    cyclingChannels.blue = true
+  }
+
+  var r = cyclingChannels.red   ? (256 - RANGE) + ((Math.cos(radians        ) + 1) / 2) * RANGE : 255
+  var g = cyclingChannels.green ? (256 - RANGE) + ((Math.cos(radians - THIRD) + 1) / 2) * RANGE : 255
+  var b = cyclingChannels.blue  ? (256 - RANGE) + ((Math.cos(radians + THIRD) + 1) / 2) * RANGE : 255
+  document.body.style.background = 'rgb(' + r.toFixed(0) + ', ' + g.toFixed(0) + ', ' + b.toFixed(0) + ')'
+}
+</script>
 </html>
